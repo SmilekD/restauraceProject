@@ -14,10 +14,10 @@ public class CookBook {
             if (dish.getTitle().equals(title)){
                 if (price >0){
                     dish.setPrice(price);
-                }
+                } else System.out.println("Aktualizovaná cena musí být větší než 0 !!");
                 if (preparationTime >0){
                     dish.setPreparationTime(preparationTime);
-                }
+                } else System.out.println("Aktualizovaný čas přípravy musí být větší než 0 !!");
                 if (image != null){
                     dish.setImage(image);
                 }
