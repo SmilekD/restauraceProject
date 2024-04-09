@@ -11,16 +11,24 @@ public class CookBook {
     }
     public void updateDish(String title, String image, int price, int preparationTime){
         for (Dish dish : dishList){
-            if (dish.getTitle().equals(title)){
-                if (price >0){
+            try {
+                if (price > 0){
                     dish.setPrice(price);
-                } else System.out.println("Aktualizovaná cena musí být větší než 0 !!");
-                if (preparationTime >0){
-                    dish.setPreparationTime(preparationTime);
-                } else System.out.println("Aktualizovaný čas přípravy musí být větší než 0 !!");
-                if (image != null){
-                    dish.setImage(image);
+                } else {
+                    throw new IllegalArgumentException("Aktualizovaná cena musí být větší než 0!!");
                 }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Chyba: " + e.getMessage());
+            }
+
+            try {
+                if (preparationTime > 0){
+                    dish.setPreparationTime(preparationTime);
+                } else {
+                    throw new IllegalArgumentException("Aktualizovaný čas přípravy musí být větší než 0!!");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Chyba: " + e.getMessage());
             }
         }
     }

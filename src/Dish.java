@@ -41,6 +41,13 @@ public class Dish {
     }
 
     public void setPreparationTime(int preparationTime) {
-        this.preparationTime = preparationTime;
+        try {
+            if (preparationTime <= 0) {
+                throw new IllegalArgumentException("Doba přípravy musí být kladné číslo.");
+            }
+            this.preparationTime = preparationTime;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Chyba: " + e.getMessage());
+        }
     }
 }
