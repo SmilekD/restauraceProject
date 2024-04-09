@@ -1,4 +1,6 @@
+import java.sql.SQLOutput;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,9 +11,9 @@ public class RestaurantManager {
 
     public void notDelivered(List<Order> orderList){
         for (Order order : orderList){
-            if (!order.isPaid()){
+            if (!order.isDelivered()){
                 System.out.println("Rozpracovaná objednávka: "+"číslo stolu: "+order.getTableNumber()+ " "+order.getDish().getTitle()+" "+order.getNumberOfUnits()+"ks"+" "
-                        +order.isPaid());
+                        +order.isDelivered()+" "+ order.isPaid());
             } else System.out.println("Nejsou žádné rozpracované objednávky");
         }
     }
@@ -45,5 +47,25 @@ public class RestaurantManager {
                 dishesOrderedToday.add(dish);
             }
         } System.out.println("Seznam jídel, která byla objednána dnes: "+dishesOrderedToday);
+    }
+    public void exportOrdersForTable(List<Order> orderList,int tableNumber){
+        System.out.println("** Objednávky pro stůl č. "+tableNumber+" **");
+        System.out.println("****");
+
+        int orderIndex = 1;
+        for (Order order : orderList){
+            if (order.getTableNumber() == tableNumber){
+                System.out.print(orderIndex + ". " + order.getDish().getTitle() + " " + order.getNumberOfUnits() + " (" +
+                        order.getDish().getPrice() + " Kč):    "+order.getOrderedTime().format(DateTimeFormatter.ofPattern("HH:mm")) + "-" +
+                        order.getFulfilmentTime().format(DateTimeFormatter.ofPattern("HH:mm")) + "\t");
+                if (order.isPaid()){
+                    System.out.println("zaplaceno\n");
+                } else {
+                    System.out.println("\n");
+                }
+                orderIndex++;
+            }
+        }
+        System.out.println("******");
     }
 }

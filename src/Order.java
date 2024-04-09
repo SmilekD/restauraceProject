@@ -5,15 +5,17 @@ public class Order {
     private Dish dish;
     private int numberOfUnits;
     private LocalDateTime orderedTime, fulfilmentTime;
+    private boolean isDelivered;
     private boolean isPaid;
 
     public Order(int tableNumber, Dish dish, int numberOfUnits, LocalDateTime orderedTime,
-                  LocalDateTime fulfilmentTime, boolean isPaid) {
+                  LocalDateTime fulfilmentTime, boolean isDelivered, boolean isPaid) {
         this.tableNumber = tableNumber;
         this.dish = dish;
         this.numberOfUnits = numberOfUnits;
         this.orderedTime = orderedTime;
         this.fulfilmentTime = fulfilmentTime;
+        this.isDelivered = isDelivered;
         this.isPaid = isPaid;
     }
 
@@ -55,6 +57,14 @@ public class Order {
 
     public void setFulfilmentTime(LocalDateTime fulfilmentTime) {
         this.fulfilmentTime = fulfilmentTime;
+    }
+
+    public boolean isDelivered() {
+        return isDelivered;
+    }
+
+    public void setDelivered(boolean delivered) {
+        isDelivered = delivered;
     }
 
     public boolean isPaid() {
