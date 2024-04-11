@@ -3,8 +3,8 @@ public class Settings {
     public static String getFileNameOrders(){
         return FILENAMEORDERS;
     }
-    private static final String FILENAMEDISHES = "resources/dishes.txt";
+    private static final String FILENAMECOOKBOOK = "resources/cookBook.txt";
     public static String getFileNameDishes(){
-        return FILENAMEDISHES;
+        return FILENAMECOOKBOOK;
     }
 }
