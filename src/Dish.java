@@ -5,7 +5,14 @@ public class Dish {
     public Dish(String title, String image, int price, int preparationTime) {
         this.title = title;
         this.image = image;
+
+        if (price <= 0) {
+            throw new IllegalArgumentException("Cena jídla musí být kladné číslo.");
+        }
         this.price = price;
+        if (preparationTime < 0) {
+            throw new IllegalArgumentException("Doba přípravy musí být kladné číslo.");
+        }
         this.preparationTime = preparationTime;
     }
     public Dish(String title, int price, int preparationTime){
@@ -41,13 +48,7 @@ public class Dish {
     }
 
     public void setPreparationTime(int preparationTime) {
-        try {
-            if (preparationTime <= 0) {
-                throw new IllegalArgumentException("Doba přípravy musí být kladné číslo.");
-            }
-            this.preparationTime = preparationTime;
-        } catch (IllegalArgumentException e) {
-            System.out.println("Chyba: " + e.getMessage());
-        }
+        this.preparationTime = preparationTime;
     }
-}
+    }
+
