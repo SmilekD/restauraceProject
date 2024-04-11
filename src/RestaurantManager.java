@@ -1,3 +1,4 @@
+import java.io.*;
 import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,13 +9,12 @@ import java.util.Comparator;
 import java.util.List;
 
 public class RestaurantManager {
-
     public void notDelivered(List<Order> orderList){
         for (Order order : orderList){
             if (!order.isDelivered()){
                 System.out.println("Rozpracovaná objednávka: "+"číslo stolu: "+order.getTableNumber()+ " "+order.getDish().getTitle()+" "+order.getNumberOfUnits()+"ks"+" "
                         +order.isDelivered()+" "+ order.isPaid());
-            } else System.out.println("Nejsou žádné rozpracované objednávky");
+            } else System.out.println("Nejsou žádné další rozpracované objednávky");
         }
     }
     public void sortedByTime(List<Order> orderList){
@@ -28,7 +28,7 @@ public class RestaurantManager {
         long size, time = 0, minutesBetween, averageTime;
         List<Order> finishedList = new ArrayList<>();
         for (Order order : orderList){
-            if (order.isPaid()){
+            if (order.isDelivered()){
                 minutesBetween = ChronoUnit.MINUTES.between(order.getOrderedTime(), order.getFulfilmentTime());
                 time += minutesBetween;
                 finishedList.add(order);
@@ -38,15 +38,21 @@ public class RestaurantManager {
         averageTime = time / size;
         System.out.println("Průměrná doba zpracování objednávky je: "+averageTime+ " minut.");
     }
-    public void getDishesOrderedToday(List<Order> orderList){
+    public void getDishesOrderedToday(List<List<Order>> orderLists) {
         LocalDateTime today = LocalDateTime.now();
-        List<Dish> dishesOrderedToday = new ArrayList<>();
-        for (Order order : orderList){
-            if (order.getOrderedTime().toLocalDate().isEqual(today.toLocalDate())){
-                Dish dish = order.getDish();
-                dishesOrderedToday.add(dish);
+        List<String> dishesOrderedToday = new ArrayList<>();
+
+        for (List<Order> orderList : orderLists) {
+            for (Order order : orderList) {
+                if (order.getOrderedTime().toLocalDate().isEqual(today.toLocalDate())) {
+                    Dish dish = order.getDish();
+                    String dishTitle = dish.getTitle();
+                    dishesOrderedToday.add(dishTitle);
+                }
             }
-        } System.out.println("Seznam jídel, která byla objednána dnes: "+dishesOrderedToday);
+        }
+
+        System.out.println("Seznam jídel, která byla objednána dnes: " + dishesOrderedToday);
     }
     public void exportOrdersForTable(List<Order> orderList,int tableNumber){
         System.out.println("** Objednávky pro stůl č. "+tableNumber+" **");
