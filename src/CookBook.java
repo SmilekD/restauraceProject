@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CookBook {
-    private List<Dish> dishList = new ArrayList<>();
+    private final List<Dish> dishList = new ArrayList<>();
     public void addDish(Dish dish){
         dishList.add(dish);
     }
@@ -53,11 +53,10 @@ public class CookBook {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 String title = parts[0];
-                String image = parts[1]; // Pokud máme v souboru i URL obrázku
+                String image = parts[1];
                 int price = Integer.parseInt(parts[2]);
                 int preparationTime = Integer.parseInt(parts[3]);
 
-                // Vytvoření nového jídla a přidání do seznamu, pouze pokud ještě neexistuje
                 Dish dish = new Dish(title, image, price, preparationTime);
             }
             System.out.println("Seznam načtených jídel:");
