@@ -4,7 +4,7 @@ public class Settings {
         return FILENAMEORDERS;
     }
     private static final String FILENAMECOOKBOOK = "resources/cookBook.txt";
-    public static String getFileNameDishes(){
+    public static String getFileNameCookBook(){
         return FILENAMECOOKBOOK;
     }
 }
