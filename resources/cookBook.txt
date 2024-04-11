@@ -1,0 +1,4 @@
+Obalovaný kuřecí řízek,kureci-rizek,150,20
+Hranolky,hranolky,50,10
+Kofola,kofola,40,5
+Pstruh na víně,pstruh-na-vine,200,60
